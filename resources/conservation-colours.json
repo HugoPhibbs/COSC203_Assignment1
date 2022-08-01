@@ -1,0 +1,13 @@
+{
+  "Not Threatened": "#02a028",
+  "Naturally Uncommon": "#649a31",
+  "Relic": "99cb68",
+  "Recovering": "#fecc33",
+  "Declining": "#fe9a01",
+  "Nationally Increasing": "#c26967",
+  "Nationally Vulnerable": "#9b0000",
+  "Nationally Endangered": "#660032",
+  "Nationally Critical": "#32033",
+  "Extinct": "black",
+  "Data Deficient": "black"
+}
