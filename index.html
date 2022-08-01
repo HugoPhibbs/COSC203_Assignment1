@@ -2,31 +2,84 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Birds of Aoteroa</title>
-
+    <title>Birds of Aotearoa</title>
     <link rel = "stylesheet" href = "styles.css">
+    <script src = "app.js" defer></script>
 </head>
 <body>
-
-    <section id = "Main Banner">
+    <header>
         <h1 id="Main Title">
-            <img src = "rescources/kiwi_icon.svg">Birds of Aotearoa
+            <img src = "resources/kiwi_icon.svg" alt="Icon of Kiwi">Birds of Aotearoa
         </h1>
-    </section>
-    <section id = "Searching form">
+    </header>
+
+    <div id = "searching-form">
         <form>
-            <label for = "search box">Search:</label>
-            <input type="text" id = "search box">
+            <div>
+                <label for = "search box">Search:</label>
+                <input type="text" id = "search box">
+            </div>
 
-            <label for = "conservation dropdown">Conservation status:</label>
-            <select name = "chosenConsStatus" id = "conservation dropdown">
-                <option value = "TODO">TODO</option>
-            </select>
+            <div>
+                <label for = "conservation-dropdown">Conservation status:</label>
+                <select name = "chosenConsStatus" id ="conservation-dropdown">
+
+                </select>
+            </div>
+
+            <div>
+                <label for="sortBy-dropdown">Sort By:</label>
+                <select name = "sortBy" id = "sortBy-dropdown">
+                    <option value = "weight">
+                        Lightest to heaviest
+                    </option>
+
+                    <option value = "weightRev">
+                        Heaviest to lightest
+                    </option>
+
+                    <option value = "length">
+                        Shortest to longest
+                    </option>
+
+                    <option value = "lengthRev">
+                        Longest to shortest
+                    </option>
+                </select>
+            </div>
+
+            <div>
+                <button id="search-button"> Search </button>
+            </div>
         </form>
-    </section>
-</body>
+    </div>
 
-<footer>
-    Bird info from <a href = "https://www.birdsnz.org.nz/">Birds New Zealand</a>
-</footer>
+    <main>
+        <div id ="bird-info-card">
+            <div>
+                <img id ="bird-image" alt = "Photo of Wrybill" src = resources/data/images/wrybill-11.jpg>
+
+                <div id = "bird-fact-sheet">
+                    <!-- <img id = "conservation-colour" src=""> -->
+                    <h3>
+                        Lorem ipsum dolor sit.
+                    </h3>
+                    <p id = "description">
+                        Lorem ipsum dolor sit amet, <br>
+                        consectetur adipisicing elit. <br>
+                        Accusamus cupiditate eius exercitationem
+                    </p>
+
+                    <p id = "photo-credit">
+                        Photo by Tony Whitehead
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        Bird info from <a href = "https://www.birdsnz.org.nz/">Birds New Zealand</a>
+    </footer>
+</body>
 </html>

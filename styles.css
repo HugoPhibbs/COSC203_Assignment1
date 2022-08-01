@@ -1,7 +1,92 @@
+/*
+Meta
+ */
+
+:root {
+    --dark-green: #358856;
+    --light-green: #5AAB61;
+}
+
 * {
     font-family: Calibri;
 }
 
-#Main\ Title {
-    color: darkgreen;
+/**
+Body styling
+ */
+body {
+    display: grid;
+}
+
+/*
+Main styling
+ */
+main {
+    display: flex;
+    flex-flow: row nowrap;
+    grid-template-rows: 10% 85% 5%;
+    grid-template-columns: 20% 80%;
+    padding: 1em;
+}
+
+/*
+Searching form
+ */
+#searching-form {
+    display: flex;
+    flex-flow: column nowrap;
+    background: var(--light-green);
+    padding: 1em
+}
+
+/*
+Header styling
+ */
+header {
+    display: flex;
+    grid-column: span 2;
+    justify-content: center;
+    background: var(--dark-green);}
+
+header > h1 {
+    color: black;
+}
+
+/*
+Footer styling
+ */
+footer {
+    grid-column: span 2;
+    background: var(--dark-green);
+}
+
+/*
+Bird Info Card styling
+ */
+#bird-info-card {
+    border-radius: 1em;
+    background: lightgray;
+    border: darkgrey 2px solid;
+    padding: 1em;
+}
+/* TODO shrink size of info boxes*/
+
+#bird-info-card > div {
+    border-radius: inherit;
+    background: white;
+    display: flex;
+    flex-direction: column;
+}
+
+#bird-fact-sheet {
+    padding: 1em;
+}
+
+#bird-image {
+    border-top-right-radius: inherit;
+    border-top-left-radius: inherit;
+}
+
+#photo-credit {
+    color: #7a7a7a;
 }
