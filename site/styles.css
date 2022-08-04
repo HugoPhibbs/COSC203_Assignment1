@@ -63,7 +63,7 @@ footer {
 /*
 Bird Info Card styling
  */
-#bird-info-card {
+.bird-info-card {
     border-radius: 1em;
     background: lightgray;
     border: darkgrey 2px solid;
