@@ -1,86 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Birds of Aotearoa</title>
-    <link rel = "stylesheet" href = "styles.css">
-    <script src = "app.js" defer></script>
+	<meta charset="UTF-8">
+	<title>Birds of Aotearoa</title>
+	<link href="styles.css" rel="stylesheet">
+	<script defer src="app.js" type="module"></script>
 </head>
 <body>
-    <header>
-        <h1 id="Main Title">
-            <img src = "../resources/kiwi_icon.svg" alt="Icon of Kiwi">Birds of Aotearoa
-        </h1>
-    </header>
+<header>
+	<h1 id="Main Title">
+		<img alt="Icon of Kiwi" src="../resources/kea.svg" id ="kiwi-svg">Birds of Aotearoa
+	</h1>
+</header>
 
-    <div id = "searching-form">
-        <form>
-            <div>
-                <label for = "search box">Search:</label>
-                <input type="text" id = "search box">
-            </div>
+<div id="searching-div">
+	<form id="searching-form">
+		<div>
+			<label for="search box">Search:</label>
+			<input id="search box" type="text">
+		</div>
 
-            <div>
-                <label for = "conservation-dropdown">Conservation status:</label>
-                <select name = "chosenConsStatus" id ="conservation-dropdown">
+		<div>
+			<label for="conservation-dropdown">Conservation status:</label>
+			<select id="conservation-dropdown" name="chosenConsStatus">
+				<option value="Any">
+					Any
+				</option>
+			</select>
+		</div>
 
-                </select>
-            </div>
+		<div>
+			<label for="sortBy-dropdown">Sort By:</label>
+			<select id="sortBy-dropdown" name="sortBy">
+				<option value ="none">
+					Don't sort
+				</option>
+				<option value="weight">
+					Lightest to heaviest
+				</option>
 
-            <div>
-                <label for="sortBy-dropdown">Sort By:</label>
-                <select name = "sortBy" id = "sortBy-dropdown">
-                    <option value = "weight">
-                        Lightest to heaviest
-                    </option>
+				<option value="weightRev">
+					Heaviest to lightest
+				</option>
 
-                    <option value = "weightRev">
-                        Heaviest to lightest
-                    </option>
+				<option value="length">
+					Shortest to longest
+				</option>
 
-                    <option value = "length">
-                        Shortest to longest
-                    </option>
+				<option value="lengthRev">
+					Longest to shortest
+				</option>
+			</select>
+		</div>
 
-                    <option value = "lengthRev">
-                        Longest to shortest
-                    </option>
-                </select>
-            </div>
+		<div>
+			<button disabled id="search-button"> Search</button>
+		</div>
 
-            <div>
-                <button id="search-button"> Search </button>
-            </div>
-        </form>
-    </div>
 
-    <main>
-        <div class ="bird-info-card">
-            <div>
-                <!-- TODO change bellow to class, not id -->
-                <img id ="bird-image" alt = "Photo of Wrybill" src = ../resources/data/images/wrybill-11.jpg>
+	</form>
+	<div id="colour-guide-div">
+		<h2 id="conservation-colours-title">
+			Conservation colour guide
+		</h2>
+		<ol id="conservation-colour-list">
 
-                <div id = "bird-fact-sheet">
-                    <!-- <img id = "conservation-colour" site=""> -->
-                    <h3>
-                        Lorem ipsum dolor sit.
-                    </h3>
-                    <p id = "description">
-                        Lorem ipsum dolor sit amet, <br>
-                        consectetur adipisicing elit. <br>
-                        Accusamus cupiditate eius exercitationem
-                    </p>
+		</ol>
+	</div>
 
-                    <p id = "photo-credit">
-                        Photo by Tony Whitehead
-                    </p>
-                </div>
-            </div>
-        </div>
-    </main>
+</div>
 
-    <footer>
-        Bird info from <a href = "https://www.birdsnz.org.nz/">Birds New Zealand</a>
-    </footer>
+<main id="main">
+</main>
+
+<footer>
+	Bird info from <a href="https://www.birdsnz.org.nz/">Birds New Zealand</a>
+</footer>
 </body>
 </html>
