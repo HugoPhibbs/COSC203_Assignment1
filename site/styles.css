@@ -3,19 +3,31 @@ Meta
  */
 
 :root {
-    --dark-green: #358856;
-    --light-green: #5AAB61;
+    --dark-green: #34c481;
+    --light-grey: #EBECF0;
+    --dark-gray: #d2d2d2;
+    --hover-gray: #c5c5c5;
 }
 
 * {
     font-family: Calibri;
 }
 
+
 /**
 Body styling
  */
 body {
-    display: grid;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+@media (min-width: 640px) {
+    body {
+        display: grid;
+        grid-template-rows: auto auto 3em;
+        grid-template-columns: 15% auto;
+    }
 }
 
 /*
@@ -23,33 +35,137 @@ Main styling
  */
 main {
     display: flex;
-    flex-flow: row nowrap;
-    grid-template-rows: 10% 85% 5%;
-    grid-template-columns: 20% 80%;
+    flex-flow: row wrap;
     padding: 1em;
+    gap: 1em;
+    justify-content: center;
 }
 
 /*
-Searching form
+Searching div
  */
+
+#searching-div {
+    background: var(--light-grey);
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 1em;
+    justify-content: flex-start;
+}
+
+#searching-div > * {
+    border: var(--dark-gray) 2px solid;
+    background-color: white;
+    border-radius: 1em;
+    margin: 1em;
+}
+
+#colour-guide-div {
+    border-top: black 1px solid;
+    padding: 1em;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#conservation-colours-title {
+    text-align: center;
+    margin-top: 0.5em;
+}
+
+.cons-colour-circle {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 1em;
+    background-color: red;
+}
+
+.cons-guide-entry {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 0.5em
+}
+
+#conservation-colour-list {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-start;
+    margin-top: 0;
+}
+
 #searching-form {
     display: flex;
     flex-flow: column nowrap;
-    background: var(--light-green);
-    padding: 1em
+    justify-content: space-between;
+    padding: 1em;
+    gap: 1em;
 }
+
+#searching-form > div {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-evenly;
+}
+
+#searching-form > .min-max-div {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1em;
+}
+
+.min-max-input-div {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    gap: 1em;
+}
+
+.min-max-input {
+    width: 3em;
+}
+
+input, select, button    {
+    border-radius: 0.5em;
+}
+
+/*
+#searching-form > .min-max > div {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+}
+ */
 
 /*
 Header styling
  */
 header {
     display: flex;
+    flex-flow: column nowrap;
     grid-column: span 2;
+    padding: 1em;
     justify-content: center;
-    background: var(--dark-green);}
+    align-items: center;
+    background: var(--dark-green);
+}
 
 header > h1 {
-    color: black;
+    color: white;
+    font-size: 3em;
+}
+
+/*
+https://stackoverflow.com/questions/22252472/how-to-change-the-color-of-an-svg-element
+ */
+#kea-svg {
+    /*filter: invert(100%) sepia(0%) saturate(7500%) hue-rotate(311deg) brightness(105%) contrast(103%);*/
+    height: 5em;
+    margin-top: 1em;
 }
 
 /*
@@ -58,6 +174,8 @@ Footer styling
 footer {
     grid-column: span 2;
     background: var(--dark-green);
+    display: flex;
+    justify-content: center;
 }
 
 /*
@@ -65,28 +183,75 @@ Bird Info Card styling
  */
 .bird-info-card {
     border-radius: 1em;
-    background: lightgray;
-    border: darkgrey 2px solid;
+    background: var(--light-grey);
+    border: var(--dark-gray) 2px solid;
     padding: 1em;
+    height: auto; /*TODO fix the height */
 }
+
+.bird-info-card:hover {
+    background: var(--hover-gray);
+}
+
 /* TODO shrink size of info boxes*/
 
-#bird-info-card > div {
+.inner_div {
+    /*
+    TODO fix border gap with photo
+     */
     border-radius: inherit;
     background: white;
-    display: flex;
-    flex-direction: column;
+    border: grey 3px solid;
+    /*TODO fix the height so it fits!*/
+    display: flow;
+    flex-flow: column nowrap;
+    justify-items: stretch;
+    align-items: stretch;
+    width: 25em; /* TODO  */
+    height: auto;
 }
 
-#bird-fact-sheet {
-    padding: 1em;
+.bird-fact-sheet {
+    padding: 0 1em 1em;
+    background: white;
+    border-bottom-right-radius: inherit;
+    border-bottom-left-radius: inherit;
 }
 
-#bird-image {
+.description > h3 {
+    border-bottom: black 1.5px solid;
+}
+
+/**
+Styling for bird image
+ */
+
+.bird-image-div {
     border-top-right-radius: inherit;
     border-top-left-radius: inherit;
+    position: relative;
+    object-fit: fill;
+    width: auto;
+    height: 15em;
 }
 
-#photo-credit {
+.bird-title {
+    position: absolute;
+    bottom: 0.1em;
+    left: 1em;
+    color: white;
+    font-size: xx-large;
+    /* -webkit-text-stroke: 1px black; /* https://stackoverflow.com/questions/2570972/css-font-border */
+}
+
+.bird-image {
+    border-top-right-radius: inherit;
+    border-top-left-radius: inherit;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.photo-credit {
     color: #7a7a7a;
 }

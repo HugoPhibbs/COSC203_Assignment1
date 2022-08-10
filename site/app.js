@@ -1,16 +1,28 @@
+// Useful constants
+const RESOURCES_URL = 'https://hugophibbs.github.io/COSC203_Assignment1/resources/'
+import {sortAndFilterBirds} from "./support.js";
+
 // Loading conservation status data
-const CONS_STATUS_URL = 'https://hugophibbs.github.io/COSC203_Assignment1/resources/conservation-colours.json'
+const CONS_STATUS_URL = `${RESOURCES_URL}conservation-colours.json`
 
-fetch(CONS_STATUS_URL)
-    .then(async (response) => {
-        const consJSON = await response.json()
-        addConsDropdownOptions(consJSON)
-        addConsColoursGuide(conservationJSON)
-        console.log(consJSON)
-    })
-    .catch((error) => console.log(error))
+/** JSON object for the hex colour codes for each conservation status*/
+let consJSON;
 
-// Handling conservation status data
+/**
+ * Fetches the conservation status json, practically the starting function of this app
+ *
+ * As loading birds relies on loading the conservation status json
+ */
+function fetchConsStatus() {
+    fetch(CONS_STATUS_URL)
+        .then(async (response) => {
+            consJSON = await response.json()
+            addConsDropdownOptions(consJSON)
+            addConsColoursGuide(consJSON)
+            fetchBirds()
+        })
+        .catch(error => console.log(error))
+}
 
 /**
  * Adds conservation status dropdown that a user can select from
@@ -19,38 +31,84 @@ fetch(CONS_STATUS_URL)
  */
 function addConsDropdownOptions(conservationJSON) {
     const consDropdown = document.getElementById("conservation-dropdown")
-    console.log("here")
     for (let consStatus in conservationJSON) {
         let option = document.createElement("option")
-        let text = document.createTextNode(consStatus);
-        option.appendChild(text);
-        option.setAttribute.value = "constStatus";
+        option.text = consStatus
+        option.setAttribute.value = consStatus;
         consDropdown.appendChild(option);
     }
 }
 
+/**
+ * Adds a conservation status colour guide to the webpage
+ *
+ * @param conservationJSON json object containing keys for conservation status, and keys for corresponding conservation colours.
+ */
 function addConsColoursGuide(conservationJSON) {
-    // TODO
+    const consList = document.getElementById("conservation-colour-list")
+    for (let cons in conservationJSON) {
+        const guideDiv = document.createElement("div")
+        guideDiv.setAttribute("class", "cons-guide-entry")
+        const statusP = document.createElement("p")
+        statusP.textContent = cons
+        const statusCirc = document.createElement("div")
+        statusCirc.setAttribute("class", "cons-colour-circle")
+        statusCirc.setAttribute("style", `background-color: ${consJSON[cons]};`)
+        guideDiv.appendChild(statusCirc)
+        guideDiv.appendChild(statusP)
+        consList.appendChild(guideDiv)
+    }
 }
 
 // Getting birds info
-const BIRDS_URL = 'https://hugophibbs.github.io/COSC203_Assignment1/resources/data/nzbird.json'
-let birds = null;
+const BIRDS_URL = `${RESOURCES_URL}data/nzbird.json`
 
-fetch(BIRDS_URL)
-    .then(async (response) => {
-        birds = await response.json()
-        addBirdsToMain(birds)
+/**
+ * Fetches a json file containing data on birds to be displayed, then passes on flow to handlers.
+ */
+function fetchBirds() {
+    fetch(BIRDS_URL)
+        .then(async (response) => {
+            birdsLoaded(await response.json())
+        })
+        .catch((error) => console.log(error))
+}
+
+/**
+ * Handles when array of birds objects has been loaded
+ *
+ * @param birds array of bird json objects
+ */
+function birdsLoaded(birds) {
+    birds = birds.sort((a, b) => 0.5-Math.random())
+    addBirdsToMain(birds)
+    addListeners(birds)
+}
+
+/**
+ * Adds listeners to components once birds have been loaded
+ *
+ * @param birds list of bird objects loaded
+ */
+function addListeners(birds) {
+    document.getElementById("search-button").addEventListener("click", (eventData) => {
+        searchButtonPressed(eventData, birds)
     })
-    .catch((error) => console.log(error))
+}
 
 /**
  * Adds a list of birds to the page
  *
+ * Clears main before adding birds
+ *
  * @param birds array containing json objects describing which birds to display
  */
 function addBirdsToMain(birds) {
-    // TODO
+    document.getElementById("main").innerHTML = ''
+    for (let birdJSON of birds) {
+        createBirdInfoBox(birdJSON)
+    }
+    document.getElementById("search-button").disabled = false;
 }
 
 /**
@@ -58,35 +116,77 @@ function addBirdsToMain(birds) {
  * then adds it using DOM
  *
  * @param birdJSON json object describing a bird to be added
+ * @returns null
  */
 function createBirdInfoBox(birdJSON) {
-    // TODO
     let infoCard = document.createElement("div")
     infoCard.className = "bird-info-card"
-    let birdImg = document.createElement("img")
-    birdImg.setAttribute("class", `bird-image`)
-    birdImg.setAttribute("alt", `Photo of ${birdJSON.english_name}`)
+    infoCard.appendChild(document.createElement("div"))
 
     let factSheet = document.createElement("div")
     factSheet.setAttribute("class", "bird-fact-sheet")
 
-    let description = document.createElement("p")
-    description.setAttribute("class", "description")
-
     let photoCredit = document.createElement("p")
-    description.setAttribute("class", "photo-credit")
+    photoCredit.setAttribute("class", "photo-credit")
+    photoCredit.textContent = `Photo Credit: ${birdJSON.photo.credit}`
 
+    const innerDiv = infoCard.children[0]
+    innerDiv.setAttribute("class", "inner_div")
+    innerDiv.style.borderColor = consJSON[birdJSON.status]
+
+    innerDiv.appendChild(createBirdImageDiv(birdJSON))
+    innerDiv.appendChild(factSheet)
+    factSheet.appendChild(createBirdDescription(birdJSON))
+    factSheet.appendChild(photoCredit)
+
+    document.getElementById("main").appendChild(infoCard)
 }
 
 /**
- * Finds the name of the jpeg image for a particular bird to be displayed
- * @param birdEnglishName
+ * Creates an div element that contains a photo of a particular bird, along with a title
+ *
+ * @param birdJSON object describing a bird
+ * @returns {HTMLDivElement} as described
  */
-function findBirdImg(birdEnglishName) {
-    birdEnglishName = birdEnglishName.toLowerCase()
+function createBirdImageDiv(birdJSON) {
+    let birdImgDiv = document.createElement("div")
+    birdImgDiv.setAttribute("class", "bird-image-div")
+
+    let birdImg = document.createElement("img")
+    birdImg.setAttribute("class", `bird-image`)
+    birdImg.setAttribute("alt", `Photo of ${birdJSON.english_name}`)
+    birdImg.setAttribute("src", `${RESOURCES_URL}${birdJSON.photo.source}`)
+
+    let birdTitle = document.createElement("h2")
+    birdTitle.setAttribute("class", "bird-title")
+    birdTitle.textContent = birdJSON.primary_name
+
+    birdImgDiv.appendChild(birdImg)
+    birdImgDiv.appendChild(birdTitle)
+
+    return birdImgDiv
 }
 
-// Adding birds to main
+/**
+ * Creates a description for a particular bird,
+ *
+ * @param birdJSON object describing a bird
+ * @returns {HTMLParagraphElement} describing a bird
+ */
+function createBirdDescription(birdJSON) {
+    let description = document.createElement("p")
+    description.setAttribute("class", "description")
+
+    description.innerHTML = `
+        <h3>${birdJSON.english_name}</h3>
+        <b>Scientific Name: </b>${birdJSON.scientific_name} <br>
+        <b>Family: </b>${birdJSON.family} <br>
+        <b>Status: </b>${birdJSON.status} <br>
+        <b>Length: </b>${birdJSON.size.length.value}${birdJSON.size.length.units} <br>
+        <b>Weight: </b>${birdJSON.size.weight.value}${birdJSON.size.weight.units} <br>
+        `
+    return description
+}
 
 // Handling search form
 
@@ -99,54 +199,35 @@ function getSearchInfo() {
     const searchString = document.getElementById("search box").value
     const conservationStatus = document.getElementById("conservation-dropdown").value
     const sortBy = document.getElementById("sortBy-dropdown").value
-    return {"searchString": searchString, "conservationStatus": conservationStatus, "sortBy": conservationStatus}
+    const weightRange = [document.getElementById("min-weight").value, document.getElementById("max-weight").value]
+    const lengthRange = [document.getElementById("min-length").value, document.getElementById("max-length").value]
+    return {
+        "searchString": searchString,
+        "conservationStatus": conservationStatus,
+        "sortBy": sortBy,
+        "weightRange": weightRange,
+        "lengthRange": lengthRange
+    }
 }
 
 /**
  * Handles event when a search button is requested from a user
  */
-function searchButtonPressed() {
-    // TODO handle case where birds json has not been loaded
+function searchButtonPressed(eventData, birds) {
+    document.getElementById("search-button").disabled = true;
     if (birds === null) {
         console.log("birds haven't been loaded yet!")
         return
     }
-    const searchInfo = getSearchInfo()
-    const searchString = searchInfo.searchString
-    if (searchString === "") {
-        return
-    }
-    let birdsFiltered = birds.filter((birdJSON) => {
-        filterBird(searchString, birdJSON)
-    })
-
-    // TODO order birds
+    addBirdsToMain(sortAndFilterBirds(birds, getSearchInfo()))
+    document.getElementById("search-button").disabled = false;
+    eventData.preventDefault();
 }
 
-/**
- * Filter function for which birds to show, according to a search query (string) from a user
- *
- * @param searchString string for a search query from a user
- * @param birdJSON json object for a particular bird to be filtered or not
- * @returns {boolean} if the bird should be kept on the  page or not
- */
-function filterBird(searchString, birdJSON) {
-    let names = [birdJSON.primary_name, birdJSON.english_name, birdJSON.scientific_name]
-    for (let name of names) {
-        // TODO sort out normalisation
-        if (name.toLowerCase().includes(searchString.toLowerCase())) {
-            return true
-        }
-    }
-    return false
+
+// Actually running
+function start() {
+    fetchConsStatus()
 }
 
-/**
- * Changes the list of birds that are displayed to a user, after a user has entered data into the search form
- *
- * @param searchCriteria object containing parts of a search from a user, eg search string, ordering, conservation status etc.
- */
-function changeBirdsDisplayed(searchCriteria) {
-    // TODO
-}
-
+start()

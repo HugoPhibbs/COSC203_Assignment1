@@ -8,8 +8,11 @@
 </head>
 <body>
 <header>
+	<!--
+	<img alt="Icon of Kiwi" src="../resources/kea.svg" id ="kea-svg">
+	-->
 	<h1 id="Main Title">
-		<img alt="Icon of Kiwi" src="../resources/kea.svg" id ="kiwi-svg">Birds of Aotearoa
+		Birds of Aotearoa
 	</h1>
 </header>
 
@@ -30,9 +33,9 @@
 		</div>
 
 		<div>
-			<label for="sortBy-dropdown">Sort By:</label>
+			<label for="sortBy-dropdown">Sort by:</label>
 			<select id="sortBy-dropdown" name="sortBy">
-				<option value ="none">
+				<option value="none">
 					Don't sort
 				</option>
 				<option value="weight">
@@ -53,6 +56,37 @@
 			</select>
 		</div>
 
+		<div class='min-max-div' id="min-max-weight">
+			<label>
+				Weight (g):
+			</label>
+			<div class="min-max-input-div">
+				<div>
+					<label for="min-weight">Min:</label>
+					<input class="min-max-input" id="min-weight" type="number">
+				</div>
+				<div>
+					<label for="max-weight">Max:</label>
+					<input class="min-max-input" id="max-weight" type="number">
+				</div>
+			</div>
+		</div>
+
+		<div class='min-max-div' id="min-max-length">
+			<label>
+				Length (cm):
+			</label>
+			<div class="min-max-input-div">
+				<div>
+					<label for="min-length">Min:</label>
+					<input class="min-max-input" id="min-length" type="number">
+				</div>
+				<div>
+					<label for="max-length">Max:</label>
+					<input class="min-max-input" id="max-length" type="number">
+				</div>
+			</div>
+		</div>
 		<div>
 			<button disabled id="search-button"> Search</button>
 		</div>
@@ -60,12 +94,8 @@
 
 	</form>
 	<div id="colour-guide-div">
-		<h2 id="conservation-colours-title">
-			Conservation colour guide
-		</h2>
-		<ol id="conservation-colour-list">
-
-		</ol>
+		<h2 id="conservation-colours-title">Conservation statuses</h2>
+		<div id="conservation-colour-list"></div>
 	</div>
 
 </div>
@@ -74,7 +104,9 @@
 </main>
 
 <footer>
-	Bird info from <a href="https://www.birdsnz.org.nz/">Birds New Zealand</a>
+	<p>
+		Bird info from <a href="https://www.birdsnz.org.nz/">Birds New Zealand</a>
+	</p>
 </footer>
 </body>
 </html>

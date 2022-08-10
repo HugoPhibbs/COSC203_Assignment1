@@ -1,5 +1,12 @@
 {
   "dependencies": {
     "@zip.js/zip.js": "^2.6.6"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "type": "module",
+  "devDependencies": {
+    "jest": "^28.1.3"
   }
 }
