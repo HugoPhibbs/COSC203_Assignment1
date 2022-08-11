@@ -218,8 +218,8 @@ Bird Info Card styling
     flex-flow: column nowrap;
     justify-items: stretch;
     align-items: stretch;
-    width: 25em;
-    height: auto;
+    width: 18em;
+    height: 100%;
     max-width: 100%;
 }
 
