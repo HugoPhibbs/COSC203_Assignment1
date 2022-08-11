@@ -198,7 +198,7 @@ Bird Info Card styling
     border: var(--dark-gray) 2px solid;
     padding: 1em;
     height: auto; /*TODO fix the height */
-    max-width: 100%;
+    max-width: 90%;
 }
 
 .bird-info-card:hover {
