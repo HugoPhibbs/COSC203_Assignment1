@@ -20,7 +20,7 @@ Body styling
 body {
     display: flex;
     flex-flow: column nowrap;
-    margin: 0px
+    margin: 0;
 }
 
 
