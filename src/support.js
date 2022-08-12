@@ -76,13 +76,24 @@ function searchBirds(birds, searchString) {
  */
 function searchBirdsHelper(searchString, birdJSON) {
     let names = [birdJSON.primary_name, birdJSON.english_name, birdJSON.scientific_name]
+    searchString = normalizeString(searchString)
     for (let name of names) {
-        // TODO sort out normalisation
-        if (name.toLowerCase().includes(searchString.toLowerCase())) {
+        if (normalizeString(name).includes(searchString)) {
             return true
         }
     }
     return false
+}
+
+/**
+ * Normalizes a string, converting it to lowercase in the process
+ *
+ * Credit to https://javascriptf1.com/snippet/remove-accents-from-a-string-in-javascript
+ *
+ * @param str String to be normalized
+ */
+function normalizeString(str) {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
 
 /**
