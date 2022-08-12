@@ -25,11 +25,11 @@ body {
 
 
 /* Any thing bigger than small screens */
-@media (min-width: 1250px) {
+@media (min-width: 800px) {
     body {
         display: grid;
         grid-template-rows: auto auto 3em;
-        grid-template-columns: auto auto;
+        grid-template-columns: 20em auto;
     }
 }
 
@@ -42,8 +42,9 @@ main {
     flex-flow: row wrap;
     padding: 1em;
     gap: 1em;
-    justify-content: center;
+    justify-content: flex-start;
     flex-basis: auto;
+    align-items: flex-start;
 }
 
 /*
@@ -188,8 +189,9 @@ Bird Info Card styling
     background: var(--light-grey);
     border: var(--dark-gray) 2px solid;
     padding: 1em;
-    height: auto; /*TODO fix the height */
+    height: 30em; /*TODO fix the height */
     max-width: 90%;
+
 }
 
 .bird-info-card:hover {
@@ -205,13 +207,12 @@ Bird Info Card styling
     border-radius: inherit;
     background: white;
     border: grey 3px solid;
-    display: flow;
-    flex-flow: column nowrap;
-    justify-items: stretch;
-    align-items: stretch;
     width: 18em;
     height: 100%;
     max-width: 100%;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 50% 50%;
 }
 
 .bird-fact-sheet {
@@ -219,6 +220,13 @@ Bird Info Card styling
     background: white;
     border-bottom-right-radius: inherit;
     border-bottom-left-radius: inherit;
+    display: grid;
+    grid-template-rows: 90% 10%;
+    /*gap: 0.5em*/
+}
+
+.description {
+    margin-bottom: 0;
 }
 
 .description > h3 {
@@ -233,9 +241,6 @@ Styling for bird image
     border-top-right-radius: inherit;
     border-top-left-radius: inherit;
     position: relative;
-    object-fit: fill;
-    width: auto;
-    height: 15em;
 }
 
 .bird-title {
@@ -257,4 +262,5 @@ Styling for bird image
 
 .photo-credit {
     color: #7a7a7a;
+    margin: 0   ;
 }
