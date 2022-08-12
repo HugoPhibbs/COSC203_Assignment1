@@ -196,7 +196,7 @@ function createBirdDescription(birdJSON) {
  * @returns object containing keys for a searchString, conservationStatus and sortBy as inputted by a user
  */
 function getSearchInfo() {
-    const searchString = document.getElementById("search box").value
+    const searchString = document.getElementById("search-box").value
     const conservationStatus = document.getElementById("conservation-dropdown").value
     const sortBy = document.getElementById("sortBy-dropdown").value
     const weightRange = [document.getElementById("min-weight").value, document.getElementById("max-weight").value]
@@ -214,13 +214,11 @@ function getSearchInfo() {
  * Handles event when a search button is requested from a user
  */
 function searchButtonPressed(eventData, birds) {
-    document.getElementById("search-button").disabled = true;
     if (birds === null) {
         console.log("birds haven't been loaded yet!")
         return
     }
     addBirdsToMain(sortAndFilterBirds(birds, getSearchInfo()))
-    document.getElementById("search-button").disabled = false;
     eventData.preventDefault();
 }
 
