@@ -191,14 +191,11 @@ Bird Info Card styling
     padding: 1em;
     height: 30em; /*TODO fix the height */
     max-width: 90%;
-
 }
 
 .bird-info-card:hover {
     background: var(--hover-gray);
 }
-
-/* TODO shrink size of info boxes*/
 
 .inner_div {
     /*
@@ -220,14 +217,11 @@ Bird Info Card styling
     background: white;
     border-bottom-right-radius: inherit;
     border-bottom-left-radius: inherit;
-    display: grid;
-    grid-template-rows: 90% 10%;
-    /*gap: 0.5em*/
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
 }
 
-.description {
-    margin-bottom: 0;
-}
 
 .description > h3 {
     border-bottom: black 1.5px solid;
@@ -262,5 +256,5 @@ Styling for bird image
 
 .photo-credit {
     color: #7a7a7a;
-    margin: 0   ;
+    margin: 0
 }
